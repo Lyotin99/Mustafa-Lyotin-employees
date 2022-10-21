@@ -37,7 +37,27 @@ h1 small {
 .section-details .section__body {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* align-items: center; */
+  flex-flow: column;
+}
+
+.section-details .section__body h4 {
+  font-size: 2rem;
+  margin: 0 ;
+}
+
+.section-details .section__body ul {
+  font-size: 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.section-details .section__body li {
+  padding-bottom: 1rem;
+}
+
+.section-details .section__body li:last-child {
+  padding-bottom: 0;
 }
 
 button {

@@ -1,7 +1,7 @@
 import { Projects } from "../utils/types";
 
 interface FileUploadProps {
-	employeesHandler: (emp: Projects) => void;
+	employeesHandler: (emp: Projects, employees: string[]) => void;
 }
 
 const FileUpload = ({ employeesHandler }: FileUploadProps) => {
@@ -19,6 +19,7 @@ const FileUpload = ({ employeesHandler }: FileUploadProps) => {
 
 			const fileLine = res.toString().split(/[\n\r]/);
 			let empMap: Projects = {};
+			let employees: string[] = [];
 
 			fileLine.forEach((fl) => {
 				if (!fl) return;
@@ -41,9 +42,11 @@ const FileUpload = ({ employeesHandler }: FileUploadProps) => {
 						dateTo,
 					},
 				};
+
+				!employees.includes(empId) && employees.push(empId);
 			});
 
-			employeesHandler(empMap);
+			employeesHandler(empMap, employees);
 		};
 
 		reader.readAsText(e.target.files[0]);

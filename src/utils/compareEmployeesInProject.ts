@@ -1,4 +1,4 @@
-import { compareDates } from "./compareDates";
+import { checkDatesCrossing } from "./checkDatesCrossing";
 import { EmployeeData } from "./types";
 
 export const compareEmployeesInProject = (employees: EmployeeData[]) => {
@@ -7,23 +7,22 @@ export const compareEmployeesInProject = (employees: EmployeeData[]) => {
 		emp2: string = "",
 		projectId: string = "";
 
-	employees.forEach((el, i) => {
-		const employeeOne = el;
-
+	employees.forEach((employeeOne, i) => {
 		for (let k = i + 1; k < employees.length; k++) {
 			const employeeTwo = employees[k];
 
 			if (employeeOne.projectId !== employeeTwo.projectId) break;
 
-			const startDate = Math.max(
-				employeeOne.dateFrom.getTime(),
-				employeeTwo.dateFrom.getTime()
+			const startDayX = employeeOne.dateFrom.getTime();
+			const endDayX = employeeOne.dateTo.getTime();
+			const startDayY = employeeTwo.dateFrom.getTime();
+			const endDayY = employeeTwo.dateTo.getTime();
+			const compareDatesResult = checkDatesCrossing(
+				startDayX,
+				startDayY,
+				endDayX,
+				endDayY
 			);
-			const endDate = Math.min(
-				employeeOne.dateTo.getTime(),
-				employeeTwo.dateTo.getTime()
-			);
-			const compareDatesResult = compareDates(startDate, endDate);
 
 			if (max < compareDatesResult) {
 				max = compareDatesResult;
